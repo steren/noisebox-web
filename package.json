@@ -1,0 +1,23 @@
+{
+  "name": "noisebox-api",
+  "version": "0.0.1",
+  "main": "app.js",
+  "user": "steren",
+  "scripts": { "start":"app.js" },
+  "description": "API for Noisebox",
+  "keywords": [],
+  "domain":"noisebox.com",
+  "maintainers": [
+    {
+      "name": "Steren",
+      "email": "steren.giannini@gmail.com",
+      "web": "http://www.steren.fr" 
+    } 
+  ],
+  "private":true,
+  "contributors": [],
+  "dependencies": {
+    "express": "2.3.x",
+    "mongoose": "2.3.x"
+  }
+}
