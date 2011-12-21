@@ -11,11 +11,13 @@
   <input type="submit" value="Box it" />
   </form>
 
+  <div id="tag">
   <p>Latest tag ID: <span id="tag-id"></span></p>
   <form id="attach-tag">
   <label for="spotify-uri">Spotify URI:</label> <input id="spotify-uri" type="text" placeholder="URI" />
   <input type="submit" value="Tag it" />
   </form>
+  </div>
 </body>
 
 <script type="text/javascript">
@@ -23,12 +25,14 @@
 
     var latesttag;
 
+    $("#tag").hide();
+
     $("#enter-boxID").submit(function() {
       $.get('box/' + $("#box-id").val(), function(data) {
         latesttag = data.latesttag;
+        $("#tag").show('normal');
         $("#tag-id").text(latesttag);
         $.get('tag/' + latesttag, function(data) {
-          console.log(data);
           if(data.content && data.content.type == 'spotify') {
             $("#spotify-uri").val(data.content.params.uri);
           }
@@ -45,8 +49,8 @@
           content: { type:"spotify", params: {uri : $("#spotify-uri").val() } }      
         },
         function(data) {
-        console.log(data);
-      });
+          console.log(data);
+        });
       return false;
     });
 
