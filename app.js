@@ -10,6 +10,8 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
 });
 
+app.use(express.bodyParser());
+
 // Tag
 var TagSchema = new mongoose.Schema({
     id : String
@@ -49,7 +51,6 @@ app.get('/tag/:id', function(req, res){
           box.id = req.param('boxid');
           box.latesttag = req.param('id');
           box.save();
-          console.log("boxsaved");
         });
       }
     });
