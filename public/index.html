@@ -29,14 +29,16 @@
 
     $("#enter-boxID").submit(function() {
       $.get('box/' + $("#box-id").val(), function(data) {
-        latesttag = data.latesttag;
-        $("#tag").show('normal');
-        $("#tag-id").text(latesttag);
-        $.get('tag/' + latesttag, function(data) {
-          if(data.content && data.content.type == 'spotify') {
-            $("#spotify-uri").val(data.content.params.uri);
-          }
-        });
+        if(data) {
+          $("#tag").show('normal');
+          latesttag = data.latesttag;
+          $("#tag-id").text(latesttag);
+          $.get('tag/' + latesttag, function(data) {
+            if(data.content && data.content.type == 'spotify') {
+              $("#spotify-uri").val(data.content.params.uri);
+            }
+          });
+        }
       });
 
       return false;
