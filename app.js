@@ -3,6 +3,9 @@ process.chdir(__dirname);
 var express = require('express'),
         mongoose = require('mongoose');
 
+var mongoUrl = process.env.MONGOHQ_URL || 'mongodb://localhost/noisebox';
+var port = process.env.PORT || 3000;
+
 var app = express.createServer();
 
 // public directory
@@ -29,7 +32,7 @@ var BoxSchema = new mongoose.Schema({
 });
 var Box = mongoose.model('Box', BoxSchema);
 
-mongoose.connect('mongodb://localhost/noisebox');
+mongoose.connect(mongoUrl);
 
 /** Get a tag content
  * @param id : id of the tag
@@ -101,7 +104,6 @@ app.get('/box/:id', function(req, res){
   }
 });
 
-var port = process.env.PORT || 3000;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });
