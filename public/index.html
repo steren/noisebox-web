@@ -13,10 +13,19 @@
 
   <div id="tag">
   <p>Latest tag ID: <span id="tag-id"></span></p>
-  <form id="attach-tag">
+
+
+  <form id="attach-tag-spotify">
   <label for="spotify-uri">Spotify URI:</label> <input id="spotify-uri" type="text" placeholder="URI" />
   <input type="submit" value="Tag it" />
   </form>
+
+  <form id="attach-tag-mp3url">
+  <label for="mp3-url">mp3 URL</label> <input id="mp3-url" type="text" placeholder="http://..." />
+  <input type="submit" value="Tag it" />
+  </form>
+
+
   </div>
 </body>
 
@@ -24,6 +33,20 @@
   $(document).ready(function(){
 
     var latesttag;
+
+    var createSubmit = function(type, getParams) {
+      return function() {
+        $.post('tag', 
+          {
+            id: latesttag,
+            content: { type:type, params: getParams() }      
+          },
+          function(data) {
+            console.log(data);
+          });
+        return false;
+      }
+    }
 
     $("#tag").hide();
 
@@ -34,8 +57,15 @@
           latesttag = data.latesttag;
           $("#tag-id").text(latesttag);
           $.get('tag/' + latesttag, function(data) {
-            if(data.content && data.content.type == 'spotify') {
-              $("#spotify-uri").val(data.content.params.uri);
+            if(data.content) {
+              switch(data.content.type) {
+                case 'spotify':
+                  $("#spotify-uri").val(data.content.params.uri);
+                  break;
+                case 'http-mp3':
+                  $("#mp3-url").val(data.content.params.uri);
+                  break;
+              }
             }
           });
         }
@@ -44,17 +74,17 @@
       return false;
     });
 
-    $("#attach-tag").submit(function() {
-      $.post('tag', 
-        {
-          id: latesttag,
-          content: { type:"spotify", params: {uri : $("#spotify-uri").val() } }      
-        },
-        function(data) {
-          console.log(data);
-        });
-      return false;
-    });
+    $("#attach-tag-spotify").submit( 
+      createSubmit("spotify", function() { 
+        return {uri : $("#spotify-uri").val() }; 
+        })
+      );
+
+    $("#attach-tag-mp3url").submit( 
+      createSubmit("http-mp3", function() { 
+        return {uri : $("#mp3-url").val() };
+        })
+      );
 
  });
 </script>
