@@ -57,7 +57,7 @@
           latesttag = data.latesttag;
           $("#tag-id").text(latesttag);
           $.get('tag/' + latesttag, function(data) {
-            if(data.content) {
+            if(data && data.content) {
               switch(data.content.type) {
                 case 'spotify':
                   $("#spotify-uri").val(data.content.params.uri);
