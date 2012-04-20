@@ -1,23 +1,33 @@
 {
   "name": "noisebox-api",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "app.js",
   "user": "steren",
-  "scripts": { "start":"app.js" },
+  "scripts": {
+    "start":"app.js"
+  },
   "description": "API for Noisebox",
   "keywords": [],
-  "domain":"noisebox.com",
+  "domain": "noisebox.com",
   "maintainers": [
     {
       "name": "Steren",
       "email": "steren.giannini@gmail.com",
-      "web": "http://www.steren.fr" 
-    } 
+      "web": "http://www.steren.fr"
+    },
+    {
+      "name": "Thomas Bassetto",
+      "email": "tbassetto@gmail.com",
+      "web": "http://twitter.com/tbassetto"
+    }
   ],
-  "private":true,
+  "private": true,
   "contributors": [],
   "dependencies": {
-    "express": "2.3.x",
-    "mongoose": "2.3.x"
+    "express": "2.5.x",
+    "mongoose": "2.5.x"
+  },
+  "engines": {
+    "node": "0.6.x"
   }
 }
